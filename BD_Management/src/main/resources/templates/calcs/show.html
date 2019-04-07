@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Show Calc</title>
+		<link rel="stylesheet" href="/css/bootstrap.css"></link>
+		<script type="/js/jquery.js"></script>
+		<script type="/js/bootatrap.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Show Calc</h1>
+			<div th:object="${calc}">
+				<div>
+					<ul class="list-inline">
+						<li><label>ID</label></li>
+						<li><p th:text="*{id}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>名前</label></li>
+						<li><p th:text="*{name}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>年</label></li>
+						<li><p th:text="*{year}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>月</label></li>
+						<li><p th:text="*{month}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>日</label></li>
+						<li><p th:text="*{date}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>時</label></li>
+						<li><p th:text="*{hour}"></p></li>
+					</ul>
+				</div>
+
+				<div>
+					<ul class="list-inline">
+						<li><label>分</label></li>
+						<li><p th:text="*{minutes}"></p></li>
+					</ul>
+				</div>
+			</div>
+			<div>
+				<a class="btn btn-default" th:href="@{/calcs/{id}/edit(id=*{id})}">編集</a>
+			</div>
+			<div class="pull-right">
+				<a class="btn btn-link" href="/calcs">一覧画面へ</a>
+			</div>
+		</div>
+	</body>
+</html>

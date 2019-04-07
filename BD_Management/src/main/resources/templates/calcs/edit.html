@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Insert title here</title>
+		<link rel="stylesheet" href="/css/bootstrap.css"></link>
+		<script type="/js/jquery.js"></script>
+		<script type="/js/bootatrap.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Editing Calc</h1>
+			<form th:action="@{/calcs/{id}(id=*{id})}" th:method="put" th:object="${calc}">
+
+				<!-- ▼ th:field
+						 - name属性、id属性を「変数名」にする
+						 - value属性を	「変数の値」にする
+						 - ※ *{name} が「hoge」の場合、name="name" id="name" value="hoge"
+				-->
+
+				<div class="form-group" th:classappend="${#fields.hasErrors('name')}? has-error">
+					<label class="control-label">名前</label>
+					<input class="form-control" type="text" th:field="*{name}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				</div>
+
+				<div class="from-group" th:classappend="${#fields.hasErrors('year')}? has-error">
+					<label class="control-label">年（加減値）</label>
+					<input class="form-control" type="number" th:field="*{year}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+				</div>
+
+				<div class="from-group" th:classappend="${#fields.hasErrors('month')}? has-error">
+					<label class="control-label">月（加減値）</label>
+					<input class="form-control" type="number" th:field="*{month}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('month')}" th:errors="*{month}"></span>
+				</div>
+
+				<div class="from-group" th:classappend="${#fields.hasErrors('date')}? has-error">
+					<label class="control-label">日（加減値）</label>
+					<input class="form-control" type="number" th:field="*{date}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
+				</div>
+
+				<div class="from-group" th:classappend="${#fields.hasErrors('hour')}? has-error">
+					<label class="control-label">時（加減値）</label>
+					<input class="form-control" type="number" th:field="*{hour}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('hour')}" th:errors="*{hour}"></span>
+				</div>
+
+				<div class="from-group" th:classappend="${#fields.hasErrors('minutes')}? has-error">
+					<label class="control-label">分（加減値）</label>
+					<input class="form-control" type="number" th:field="*{minutes}"></input>
+					<span class="text-danger" th:if="${#fields.hasErrors('minutes')}" th:errors="*{minutes}"></span>
+				</div>
+
+				<div>
+					<button class="btn btn-default" type="submit">更新</button>
+				</div>
+
+				<div class="pull-right">
+					<a class="btn btn-link" href="/calcs">一覧画面へ</a>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

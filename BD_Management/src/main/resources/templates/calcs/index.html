@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BusinessDate</title>
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<script src="/js/jquery.js" ></script>
+		<script src="/js/bootstrap.js" ></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>BussinessDate</h1>
+			<div>
+				<ul class="list-inline">
+					<li><input type="datetime-local" disabled="disabled" name="reference-date" value="2019-04-01T00:00"/></li>
+					<li><a class="btn btn-default btn-xs">計算</a></li>
+				</ul>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>日付名</th>
+						<th>計算日</th>
+						<th>年(加減値)</th>
+						<th>月(加減値)</th>
+						<th>日(加減値)</th>
+						<th>時(加減値)</th>
+						<th>分(加減値)</th>
+						<th></th> <!-- 参照 -->
+						<th></th> <!-- 編集 -->
+						<th></th> <!-- 削除 -->
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<!--
+					▼ Controllerから渡されたcalcsに対して<tr ...>タグのループ処理を行う
+					 	- Thymeleafの出力機能 [th:xxx]
+					 	- 変数式	〔Variable Expressions〕			: ${...}
+					 	- 選択変数式〔Selection Variable Expressions〕	: *{...}
+					 		th:object="${calc}"とすることで、このタグより子要素を、
+					 	  	${calc.xxx}を*{xxx}と省略して書けるようになる
+					 -->
+
+					<tr th:each="calc:${calcs}" th:object="${calc}">
+						<td th:text="*{id}"></td>
+						<td th:text="*{name}"></td>
+						<td>yyyy/mm/dd hh:mm</td>
+						<td th:text="*{year}"></td>
+						<td th:text="*{month}"></td>
+						<td th:text="*{date}"></td>
+						<td th:text="*{hour}"></td>
+						<td th:text="*{minutes}"></td>
+
+						<!--
+						 ▼ th:href="xxx"とすることでhref属性に設定する値を動的にすることができる
+							- リンクURL式〔Link URL Expressions〕: @{...}
+							- 【 /calcs/{id} 】の {id} は、後の【 (id=*{id}) 】でセットしている
+						 -->
+
+						<td><a class="btn btn-default btn-xs" th:href="@{/calcs/{id}(id=*{id})}">参照</a></td>
+						<td><a class="btn btn-default btn-xs" th:href="@{/calcs/{id}/edit(id=*{id})}">編集</a></td>
+
+						<!--
+						 ▼ 削除の処理はHTTPメソッドをDELETEにしてアクセスしたいので、
+						 	formタグにしてth:method="delete"を付けている
+						 -->
+						<td>
+							<form th:action="@{/calcs/{id}(id=*{id})}" th:method="delete">
+								<input class="btn btn-default btn-xs" type="submit" value="削除"></input>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- ▼ 新規作成ボタン ▼-->
+			<a class="btn btn-default btn-xs" href="/calcs/new">新規作成</a>
+
+		</div>
+	</body>
+</html>
